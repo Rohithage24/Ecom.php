@@ -1,0 +1,58 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.btn-block {
+    margin-top: 10px;
+}
+
+
+
+/*user list*/
+ body {
+           
+            min-height: 100vh;
+            margin: 0;
+        }
+        
+        .sidebar {
+            width: 25%;
+            
+            background-color: #f8f9fa;
+            padding: 20px;
+
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .cont{
+            width: 100%;
+            display: flex;
+        }
+        .img{
+            width: 200px;
+        }
+        .table{
+            text-align: center;
+        }
+         .success-message {
+            color: green;
+        }
+        .error-message {
+            color: red;
+        }
+        .img-fluid{
+            width: 100px;
+        }
