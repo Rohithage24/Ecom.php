@@ -33,6 +33,29 @@ $pprice= $data["prPrice"];
 
   if (isset($_POST["addcart"])) {
 
+    $tableCheckQuery = "SHOW TABLES LIKE 'products'";
+    $tableCheckResult = mysqli_query($connect, $tableCheckQuery);
+    if (mysqli_num_rows($tableCheckResult) == 0) {
+        // Table does not exist, create it
+        $createTableQuery = "CREATE TABLE IF NOT EXISTS `products` (
+  `pid` int(12) NOT NULL AUTO_INCREMENT,
+  `prName` varchar(50) NOT NULL,
+  `prCategory` varchar(50) NOT NULL,
+  `prPrice` int(50) NOT NULL,
+  `prDescription` varchar(200) NOT NULL,
+  `Available` varchar(50) NOT NULL,
+  `image` varchar(50) NOT NULL,
+  `upoaded_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`pid`)
+)";
+    
+        if (mysqli_query($connect, $createTableQuery)) {
+            echo "Table 'user' created successfully.";
+        } else {
+            die("ERROR: Could not create table. " . mysqli_error($connect));
+        }
+    }
+
 $qryadd = "INSERT INTO `addcart`(`aid`, `uid`, `pid`, `pname`, `price`, `date`, `modifide_date`) VALUES (null,'$uid','$pid','$pname','$pprice',now(),now())";
 
 

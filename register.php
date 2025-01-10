@@ -1,11 +1,37 @@
 <?php
 if (isset($_POST["register"])) {
-    $connect = mysqli_connect("localhost", "root", "", "shop");
+    // $connect = mysqli_connect("dpg-ctvvigtds78s73estnjg-a", "ecomdb_18i9", "aRPOobpd4r0w8oXWmXc9oeJ6684W0k1T", "ecomdb_18i9");
+    $connect = mysqli_connect("dpg-ctvvigtds78s73estnjg-a", "ecomdb_18i9", "aRPOobpd4r0w8oXWmXc9oeJ6684W0k1T", "ecomdb_18i9");
+
 
     if ($connect === false) {
         die("ERROR: Could not connect. " . mysqli_connect_error());
     }
 
+    // Check if the table exists
+    $tableCheckQuery = "SHOW TABLES LIKE 'user'";
+    $tableCheckResult = mysqli_query($connect, $tableCheckQuery);
+
+    if (mysqli_num_rows($tableCheckResult) == 0) {
+        // Table does not exist, create it
+        $createTableQuery = "CREATE TABLE user (
+            id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            fullName VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            contact VARCHAR(15) NOT NULL,
+            age INT(3) NOT NULL,
+            image VARCHAR(255) NOT NULL
+        )";
+
+        if (mysqli_query($connect, $createTableQuery)) {
+            echo "Table 'user' created successfully.";
+        } else {
+            die("ERROR: Could not create table. " . mysqli_error($connect));
+        }
+    }
+
+    // Proceed with the registration process
     $fn = $_POST["fullName"];
     $em = $_POST["email"];
     $ps = $_POST["password"];
@@ -13,7 +39,6 @@ if (isset($_POST["register"])) {
     $ag = $_POST["age"];
 
     $file = $_FILES["image"];
-   
 
     $orgname = $file["name"];
     $orgsize = $file["size"];
@@ -21,12 +46,9 @@ if (isset($_POST["register"])) {
     $orgtype = $file["type"];
 
     $fileinfo = pathinfo($orgname);
-    
-
     $fileexte = strtolower($fileinfo['extension']);
 
     $ext = array('jpg', 'png', 'jpeg', 'bmp');
-
     $corr = in_array($fileexte, $ext);
 
     if ($corr) {
@@ -56,7 +78,6 @@ if (isset($_POST["register"])) {
     mysqli_close($connect);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

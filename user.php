@@ -7,7 +7,7 @@ if (!isset($_SESSION["sid"])) {
 }
     
     // include("..\include\dbconnect.php");
-    $connect = mysqli_connect("localhost", "root", "", "shop");
+    $connect = mysqli_connect("dpg-ctvvigtds78s73estnjg-a", "ecomdb_18i9", "aRPOobpd4r0w8oXWmXc9oeJ6684W0k1T", "ecomdb_18i9");
    $id = $_SESSION["sid"];	
 
 $qur = "SELECT * FROM user WHERE id = '$id'";

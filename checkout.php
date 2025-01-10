@@ -57,6 +57,32 @@ $result = mysqli_query($connect, $qur);
     $pid_n=$_POST['pid'];
 
 
+    if (mysqli_num_rows($tableCheckResult) == 0) {
+        // Table does not exist, create it
+        $createTableQuery = "CREATE TABLE IF NOT EXISTS `order` (
+      `oid` int(12) NOT NULL AUTO_INCREMENT,
+      `uid` int(12) NOT NULL,
+      `pid` int(12) NOT NULL,
+      `quentity` int(50) NOT NULL,
+      `price` int(200) NOT NULL,
+      `totalprice` int(50) NOT NULL,
+      `address` varchar(255) NOT NULL,
+      `cardNumber` int(16) NOT NULL,
+      `cvv` int(3) NOT NULL,
+      `expdate` date NOT NULL,
+      `date` datetime NOT NULL DEFAULT current_timestamp(),
+      PRIMARY KEY (`oid`),
+      KEY `fk_product_order` (`pid`),
+      KEY `fk_user_order` (`uid`)
+    )";
+    
+        if (mysqli_query($connect, $createTableQuery)) {
+            echo "Table 'user' created successfully.";
+        } else {
+            die("ERROR: Could not create table. " . mysqli_error($connect));
+        }
+    }
+
     // echo $pid_n;
 
 
